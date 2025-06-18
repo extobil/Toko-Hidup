@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:gravity="center"
+    tools:context=".login">
+
+    <!-- CardView untuk container login -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Logo Petshop -->
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"/>
+
+            <!-- Judul Login -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selamat Datang!"
+                android:textAlignment="center"
+                android:textColor="#064A55"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp" />
+
+            <!-- Input Username -->
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="exemple@gmail.com"
+                android:minHeight="48dp"
+                android:drawablePadding="10dp"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp" />
+
+            <!-- Input Password -->
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:drawablePadding="10dp"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp" />
+
+            <!-- Lupa Password -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Lupa Password?"
+                android:textColor="#064A55"
+                android:textStyle="italic"
+                android:gravity="right"
+                android:layout_marginRight="10dp" />
+
+            <!-- Tombol Login -->
+            <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#064A55"
+                android:text="Login"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:elevation="4dp"
+                android:stateListAnimator="@null" />
+
+            <!-- Daftar Akun Baru -->
+            <!-- Daftar Akun Baru -->
+            <TextView
+                android:id="@+id/registerd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Belum punya akun? Daftar"
+                android:textColor="#064A55"
+                android:textStyle="italic"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/guest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Login Guest Account"
+                android:textColor="#ffff"
+                android:textStyle="italic"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
