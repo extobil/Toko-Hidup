@@ -1,6 +1,7 @@
 package com.example.utsa22202303007;
 
 import com.example.utsa22202303007.ui.Checkout.AddressItem;
+import com.example.utsa22202303007.ui.notifications.ResponseOrderHistory;
 import com.example.utsa22202303007.ui.product.Product;
 
 import java.util.List;
@@ -87,6 +88,7 @@ public interface RegisterAPI {
     @GET("get_user_id_by_email.php")
     Call<ResponseBody> getUserIdByEmail(@Query("email") String email);
 
+
     @FormUrlEncoded // Gunakan ini jika Anda mengirim data sebagai Form-UrlEncoded
     @POST("update_address.php")
     Call<ResponseBody> updateAddress(
@@ -102,4 +104,16 @@ public interface RegisterAPI {
     );
 
 
+    @GET("riwayat_order.php")
+    Call<ResponseOrderHistory> getOrderHistory(
+            @Query("id") int idPelanggan
+    );
+
+
+    @Multipart
+    @POST("uploadbukti.php")
+    Call<ResponseBody> uploadBuktiBayar(
+            @Part("trans_id") RequestBody transId,
+            @Part MultipartBody.Part bukti_bayar
+    );
 }

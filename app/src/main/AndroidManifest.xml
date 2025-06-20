@@ -22,6 +22,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.notifications.RiwayatPesanan"
+            android:exported="false" />
+        <activity
             android:name=".ui.Checkout.EditAddressActivity"
             android:exported="false" />
         <activity
@@ -61,6 +64,7 @@
 
             <!-- Jika diperlukan, Anda bisa menambahkan intent-filter di sini -->
         </activity>
+
     </application>
 
 </manifest>

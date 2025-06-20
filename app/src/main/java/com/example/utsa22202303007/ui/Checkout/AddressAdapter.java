@@ -1,11 +1,13 @@
 package com.example.utsa22202303007.ui.Checkout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     private Context context;
     private List<AddressItem> addressList;
     private OnAddressSelectedListener listener;
+    private int selectedPosition = -1;
 
     public interface OnAddressSelectedListener {
         void onAddressSelected(AddressItem address);
@@ -30,6 +33,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         this.context = context;
         this.addressList = addressList;
         this.listener = listener;
+
+        // Restore selected position temporarily
+        SharedPreferences prefs = context.getSharedPreferences("alamat_prefs", Context.MODE_PRIVATE);
+        selectedPosition = prefs.getInt("selected_position", -1);
     }
 
     @NonNull
@@ -40,33 +47,61 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddressViewHolder holder, @SuppressLint("RecyclerView") int position) {
         AddressItem address = addressList.get(position);
 
         holder.tvFullName.setText(address.getFullName());
-        holder.tvPhoneNumber.setText(address.getPhoneNumber());
+        holder.tvPhoneNumber.setText("| "+address.getPhoneNumber());
         holder.tvAddress.setText(address.getAddress());
         holder.tvCity.setText(address.getCity());
         holder.tvProvince.setText(address.getProvince());
         holder.tvPostalCode.setText(address.getPostalCode());
 
+        // Show/hide label "Default"
         if (address.isDefault()) {
             holder.tvDefaultLabel.setVisibility(View.VISIBLE);
-            GradientDrawable shape = new GradientDrawable();
-            shape.setShape(GradientDrawable.RECTANGLE);
-            shape.setCornerRadius(8);
-            shape.setColor(Color.parseColor("#388E3C"));
-            holder.tvDefaultLabel.setBackground(shape);
+            holder.tvDefaultLabel.setBackground(null);
         } else {
             holder.tvDefaultLabel.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(v -> {
+        // Set default if selectedPosition belum diset
+        if (selectedPosition == -1 && address.isDefault()) {
+            selectedPosition = position;
+        }
+
+        holder.radioSelect.setChecked(position == selectedPosition);
+
+        // Klik RadioButton
+        holder.radioSelect.setOnClickListener(v -> {
+            selectedPosition = holder.getAdapterPosition();
+
+            // Simpan ke SharedPreferences sementara
+            SharedPreferences prefs = context.getSharedPreferences("alamat_prefs", Context.MODE_PRIVATE);
+            prefs.edit().putInt("selected_position", selectedPosition).apply();
+
+            notifyDataSetChanged();
+
             if (listener != null) {
                 listener.onAddressSelected(address);
             }
         });
 
+        // Klik seluruh item juga bisa pilih
+        holder.itemView.setOnClickListener(v -> {
+            selectedPosition = holder.getAdapterPosition();
+
+            SharedPreferences prefs = context.getSharedPreferences("alamat_prefs", Context.MODE_PRIVATE);
+            prefs.edit().putInt("selected_position", selectedPosition).apply();
+
+            notifyDataSetChanged();
+
+            if (listener != null) {
+                listener.onAddressSelected(address);
+            }
+        });
+
+        // Tombol ubah alamat
         holder.tvUbah.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onEditAddress(address);
@@ -81,6 +116,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
 
     public static class AddressViewHolder extends RecyclerView.ViewHolder {
         TextView tvFullName, tvPhoneNumber, tvDefaultLabel, tvAddress, tvCity, tvProvince, tvPostalCode, tvUbah;
+        RadioButton radioSelect;
 
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +128,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             tvProvince = itemView.findViewById(R.id.tvProvince);
             tvPostalCode = itemView.findViewById(R.id.tvkodepos);
             tvUbah = itemView.findViewById(R.id.tvUbah);
+            radioSelect = itemView.findViewById(R.id.radioSelect);
         }
+    }
+
+    public AddressItem getSelectedAddress() {
+        if (selectedPosition >= 0 && selectedPosition < addressList.size()) {
+            return addressList.get(selectedPosition);
+        }
+        return null;
     }
 }

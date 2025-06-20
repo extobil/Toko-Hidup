@@ -135,6 +135,9 @@ public class Checkout extends AppCompatActivity implements ShippingOptionAdapter
 
         rgPaymentMethod = findViewById(R.id.rgPaymentMethod);
 
+        SharedPreferences prefs = getSharedPreferences("alamat_prefs", MODE_PRIVATE);
+        prefs.edit().remove("selected_position").apply();
+
         // Listener untuk tombol/cardview pilih alamat
         etAlamatCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,7 +230,7 @@ public class Checkout extends AppCompatActivity implements ShippingOptionAdapter
                 orderObj.put("subtotal", subtotal);
                 orderObj.put("ongkir", shippingCost);
                 orderObj.put("total_bayar", subtotal + shippingCost);
-                orderObj.put("metode_bayar", rgPaymentMethod); // atau "cod" sesuai pilihan user
+                orderObj.put("metode_bayar", selectedPaymentMethod); // atau "cod" sesuai pilihan user
                 orderObj.put("bukti_bayar", ""); // bisa dikosongkan saat awal
                 orderObj.put("status", "menunggu"); // default status awal
 

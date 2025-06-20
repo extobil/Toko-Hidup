@@ -51,5 +51,11 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_guest_profile" />
 
+    <fragment
+        android:id="@+id/RiwayatOrder"
+        android:name="com.example.utsa22202303007.ui.notifications.OrderHistoryFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_order_history" />
+
 
 </navigation>

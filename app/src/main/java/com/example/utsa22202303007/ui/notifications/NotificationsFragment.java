@@ -70,6 +70,11 @@ public class NotificationsFragment extends Fragment {
             navController.navigate(R.id.fragmentInformasi);
         });
 
+        binding.menPesananSaya.setOnClickListener(v -> {
+            navController.navigate(R.id.RiwayatOrder);
+        });
+
+
         // Panggil dialog ganti password
         binding.menuGantiPassword.setOnClickListener(v -> {
             showChangePasswordDialog();
