@@ -250,6 +250,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jadikan Alamat Utama"
+            android:buttonTint="@color/teal_700"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"/>
 
@@ -258,6 +259,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Simpan Perubahan"
+            android:backgroundTint="@color/teal_700"
             android:layout_marginTop="24dp"/>
 
     </LinearLayout>
